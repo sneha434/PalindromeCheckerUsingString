@@ -1,30 +1,41 @@
+import java.util.Scanner;
+import java.util.Stack;
+
 public class PalindromeCheckerUsingString {
-        public static void main(String[] args) {
-            Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Enter a string to check: ");
-            String original = scanner.nextLine();
+        System.out.print("Enter a string: ");
+        String originalInput = scanner.nextLine();
 
-            // Step 1: Reverse the string using a loop
-            String reversed = "";
+        // CLEANUP: Remove spaces and punctuation, convert to lowercase
+        // This makes "Race Car" work as a palindrome
+        String cleanInput = originalInput.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-            // We start from the last index and move to 0
-            for (int i = original.length() - 1; i >= 0; i--) {
-                // String concatenation (+) creates a new String object in each iteration
-                reversed = reversed + original.charAt(i);
-            }
+        Stack<Character> stack = new Stack<>();
 
-            // Step 2 & 3: Compare and Display Result
-            System.out.println("Original: " + original);
-            System.out.println("Reversed: " + reversed);
-
-            // We use .equals() to compare content, not == which compares memory addresses
-            if (original.equalsIgnoreCase(reversed)) {
-                System.out.println("Result: The string is a Palindrome.");
-            } else {
-                System.out.println("Result: The string is NOT a Palindrome.");
-            }
-
-            scanner.close();
+        // Step 1: Push characters onto the stack
+        for (int i = 0; i < cleanInput.length(); i++) {
+            stack.push(cleanInput.charAt(i));
         }
+
+        // Step 2: Pop characters to reverse
+        StringBuilder reversedString = new StringBuilder();
+        while (!stack.isEmpty()) {
+            reversedString.append(stack.pop());
+        }
+
+        String reversed = reversedString.toString();
+
+        System.out.println("Original (Cleaned): " + cleanInput);
+        System.out.println("Reversed via Stack: " + reversed);
+
+        if (cleanInput.equals(reversed)) {
+            System.out.println("Result: Success! It is a palindrome.");
+        } else {
+            System.out.println("Result: Failure. It is not a palindrome.");
+        }
+
+        scanner.close();
     }
+}
