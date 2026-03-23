@@ -39,7 +39,7 @@ public class UC9 {
         if (result) {
             System.out.println("The string is a PALINDROME.");
         } else {
-            System.out.println("The string is NOT a palindrome.");
+            System.out.println(" The string is NOT a palindrome.");
         }
 
         scanner.close();
